@@ -43,14 +43,16 @@ const Statistics = (props) => {
 
   if (sumScore > 0) {
     return (
-      <div>
-        <StatisticsLine text="good" value={good} />
-        <StatisticsLine text="neutral" value={neutral} />
-        <StatisticsLine text="bad" value={bad} />
-        <StatisticsLine text="all" value={sumScore} />
-        <StatisticsLine text="average" value={avgScore} />
-        <StatisticsLine text="positive" value={percent} />
-      </div>
+      <table>
+        <tbody>
+          <StatisticsLine text="good" value={good} />
+          <StatisticsLine text="neutral" value={neutral} />
+          <StatisticsLine text="bad" value={bad} />
+          <StatisticsLine text="all" value={sumScore} />
+          <StatisticsLine text="average" value={avgScore} />
+          <StatisticsLine text="positive" value={percent} />
+        </tbody>
+      </table>
     );
   } else {
     return <p>No feedback given</p>;
@@ -59,9 +61,10 @@ const Statistics = (props) => {
 
 // accepts state variable as prop to display
 const StatisticsLine = ({ text, value }) => (
-  <div>
-    {text} {value}
-  </div>
+  <tr>
+    <td>{text}</td>
+    <td>{value}</td>
+  </tr>
 );
 
 export default App;
