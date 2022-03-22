@@ -19,29 +19,48 @@ const App = () => {
   return (
     <div>
       <h1>give feedback</h1>
-      <FeedbackButton text="good" handler={incrGood} />
-      <FeedbackButton text="neutral" handler={incrNeutral} />
-      <FeedbackButton text="bad" handler={incrBad} />
+      <Button text="good" handler={incrGood} />
+      <Button text="neutral" handler={incrNeutral} />
+      <Button text="bad" handler={incrBad} />
       <h1>statistics</h1>
-      <DisplayFeedback text="good" score={good} />
-      <DisplayFeedback text="neutral" score={neutral} />
-      <DisplayFeedback text="bad" score={bad} />
-      <DisplayFeedback text="all" score={sumScore()} />
-      <DisplayFeedback text="average" score={avgScore()} />
-      <DisplayFeedback text="positive" score={percent()} />
+      <Statistics
+        good={good}
+        neutral={neutral}
+        bad={bad}
+        sumScore={sumScore()}
+        avgScore={avgScore()}
+        percent={percent()}
+      />
     </div>
   );
 };
 
 // accepts reference to function that updates state variable
-const FeedbackButton = ({ text, handler }) => (
-  <button onClick={handler}>{text}</button>
-);
+const Button = ({ text, handler }) => <button onClick={handler}>{text}</button>;
+
+const Statistics = (props) => {
+  const { good, neutral, bad, sumScore, avgScore, percent } = props;
+
+  if (sumScore > 0) {
+    return (
+      <div>
+        <StatisticsLine text="good" value={good} />
+        <StatisticsLine text="neutral" value={neutral} />
+        <StatisticsLine text="bad" value={bad} />
+        <StatisticsLine text="all" value={sumScore} />
+        <StatisticsLine text="average" value={avgScore} />
+        <StatisticsLine text="positive" value={percent} />
+      </div>
+    );
+  } else {
+    return <p>No feedback given</p>;
+  }
+};
 
 // accepts state variable as prop to display
-const DisplayFeedback = ({ text, score }) => (
+const StatisticsLine = ({ text, value }) => (
   <div>
-    {text} {score}
+    {text} {value}
   </div>
 );
 
