@@ -12,6 +12,10 @@ const App = () => {
   const incrNeutral = () => setNeutral(neutral + 1);
   const incrBad = () => setBad(bad + 1);
 
+  const sumScore = () => good + neutral + bad;
+  const avgScore = () => (good + bad * -1) / sumScore();
+  const percent = () => (good / sumScore()) * 100;
+
   return (
     <div>
       <h1>give feedback</h1>
@@ -22,6 +26,9 @@ const App = () => {
       <DisplayFeedback text="good" score={good} />
       <DisplayFeedback text="neutral" score={neutral} />
       <DisplayFeedback text="bad" score={bad} />
+      <DisplayFeedback text="all" score={sumScore()} />
+      <DisplayFeedback text="average" score={avgScore()} />
+      <DisplayFeedback text="positive" score={percent()} />
     </div>
   );
 };
