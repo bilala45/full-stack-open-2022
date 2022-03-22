@@ -11,6 +11,8 @@ const App = () => {
     "Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when diagnosing patients",
   ];
   const [selected, setSelected] = useState(0);
+  // var that tracks votes for each anecdote
+  const [votes, setVotes] = useState(new Array(anecdotes.length).fill(0));
 
   // pass button a reference to handleSelected
   // button will cause re-rendering of component with randomly generated selected value
@@ -19,10 +21,37 @@ const App = () => {
     return setSelected(numberGen);
   };
 
+  const handleVotes = () => {
+    // copies votes array using spread
+    const updateVotes = [...votes];
+    // increment value at selected votes
+    updateVotes[selected] = votes[selected] + 1;
+    return setVotes(updateVotes);
+  };
+
   return (
     <div>
+      <h1>Anecdote of the day</h1>
       <div>{anecdotes[selected]}</div>
+      <div>has {votes[selected]} votes</div>
+      <button onClick={handleVotes}>vote</button>
       <button onClick={handleSelected}>next anecdote</button>
+      <MostVotes anecdotes={anecdotes} votes={votes} />
+    </div>
+  );
+};
+
+// component that displays anecdote with most votes
+const MostVotes = (props) => {
+  const { anecdotes, votes } = props;
+
+  const findMax = () => votes.indexOf(Math.max(...votes));
+
+  return (
+    <div>
+      <h1>Anecdote with most votes</h1>
+      <div>{anecdotes[findMax()]}</div>
+      <div>has {votes[findMax()]} votes</div>
     </div>
   );
 };
