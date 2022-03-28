@@ -1,73 +1,61 @@
-// renders total number of exercises
-const Total = (props) => {
-  return (
-    <p>
-      Number of exercises{" "}
-      {props.parts[0].exercises +
-        props.parts[1].exercises +
-        props.parts[2].exercises}
-    </p>
-  );
-};
+import Course from "./components/Course";
 
 const App = () => {
-  const course = {
-    id: 1,
-    name: "Half Stack application development",
-    parts: [
-      {
-        name: "Fundamentals of React",
-        exercises: 10,
-        id: 1,
-      },
-      {
-        name: "Using props to pass data",
-        exercises: 7,
-        id: 2,
-      },
-      {
-        name: "State of a component",
-        exercises: 14,
-        id: 3,
-      },
-    ],
-  };
+  const courses = [
+    {
+      name: "Half Stack application development",
+      id: 1,
+      parts: [
+        {
+          name: "Fundamentals of React",
+          exercises: 10,
+          id: 1,
+        },
+        {
+          name: "Using props to pass data",
+          exercises: 7,
+          id: 2,
+        },
+        {
+          name: "State of a component",
+          exercises: 14,
+          id: 3,
+        },
+        {
+          name: "Redux",
+          exercises: 11,
+          id: 4,
+        },
+      ],
+    },
+    {
+      name: "Node.js",
+      id: 2,
+      parts: [
+        {
+          name: "Routing",
+          exercises: 3,
+          id: 1,
+        },
+        {
+          name: "Middlewares",
+          exercises: 7,
+          id: 2,
+        },
+      ],
+    },
+  ];
 
-  return <Course course={course} />;
-};
-
-// renders the components of a course
-const Course = ({ course }) => {
+  // return value iterates through courses array using map function and renders component for each element
   return (
     <>
-      <Header name={course.name} />
-      <Content parts={course.parts} />
-    </>
-  );
-};
-
-// renders course name
-const Header = ({ name }) => {
-  return <h1>{name}</h1>;
-};
-
-// renders parts of the course
-const Content = ({ parts }) => {
-  return (
-    <div>
-      {parts.map((part) => (
-        <Part key={part.id} name={part.name} exercises={part.exercises} />
+      <h1>Web development curriculum</h1>
+      {courses.map((course) => (
+        <div key={course.id}>
+          <Course course={course} />
+        </div>
       ))}
-    </div>
-  );
-};
-
-// renders information about each part
-const Part = ({ name, exercises }) => {
-  return (
-    <p>
-      {name} {exercises}
-    </p>
+    </>
   );
 };
 
