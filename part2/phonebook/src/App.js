@@ -1,9 +1,19 @@
 import { useState } from "react";
+import Search from "./Search";
+import Numbers from "./Numbers";
+import PersonForm from "./PersonForm";
 
 const App = () => {
-  const [persons, setPersons] = useState([{ name: "Arto Hellas" }]);
-  // controls form input element
+  // state variables
+  const [persons, setPersons] = useState([
+    { name: "Arto Hellas", number: "040 - 1234567", id: 1 },
+    { name: "Ada Lovelace", number: "39-44-5323523", id: 2 },
+    { name: "Dan Abramov", number: "12-43-234345", id: 3 },
+    { name: "Mary Poppendieck", number: "39-23-6423122", id: 4 },
+  ]);
   const [newName, setNewName] = useState("");
+  const [newNumber, setNewNumber] = useState("");
+  const [search, setSearch] = useState("");
 
   // handles form submission by adding input to persons and resetting newName
   const handleSubmit = (event) => {
@@ -19,10 +29,16 @@ const App = () => {
       (person) => person.name.replace(/\s/g, "") === testString
     );
     inArray === -1
-      ? addSetPersons({ name: newName })
+      ? addSetPersons({
+          name: newName,
+          number: newNumber,
+          id: persons.length + 1,
+        })
       : alert(`${newName} is already in phonebook`);
-    // reset newName
+
+    // reset newName and newNumber
     setNewName("");
+    setNewNumber("");
   };
 
   // handler to add values to persons state variable
@@ -31,30 +47,29 @@ const App = () => {
     setPersons(persons.concat(name));
   };
 
+  const showPersons =
+    search === ""
+      ? persons
+      : persons.filter((person) =>
+          person.name.toLowerCase().includes(search.toLowerCase())
+        );
+
   return (
     <div>
       <h2>Phonebook</h2>
-      <form>
-        {/* input tag for contact name */}
-        <div>
-          {/* input value given by newName state variable */}
-          name:{" "}
-          <input
-            onChange={(event) => setNewName(event.target.value)}
-            value={newName}
-          />
-        </div>
-        <div>
-          <button type="submit" onClick={handleSubmit}>
-            add
-          </button>
-        </div>
-      </form>
+      <Search search={search} setSearch={setSearch} />
+
+      <h2>Add a new person</h2>
+      <PersonForm
+        newName={newName}
+        setNewName={setNewName}
+        newNumber={newNumber}
+        setNewNumber={setNewNumber}
+        handleSubmit={handleSubmit}
+      />
+
       <h2>Numbers</h2>
-      {/* maps persons array and prints name */}
-      {persons.map((person) => (
-        <div key={person.name}>{person.name}</div>
-      ))}
+      <Numbers showPersons={showPersons} />
     </div>
   );
 };
