@@ -9,7 +9,18 @@ const App = () => {
   const handleSubmit = (event) => {
     // prevents form submit
     event.preventDefault();
-    addSetPersons({ name: newName });
+
+    // save newName in testString without whitespace
+    const testString = newName.replace(/\s/g, "");
+
+    // check if name is already in phone book (index returned if name exists)
+    // removes whitespace to prevent duplicates
+    const inArray = persons.findIndex(
+      (person) => person.name.replace(/\s/g, "") === testString
+    );
+    inArray === -1
+      ? addSetPersons({ name: newName })
+      : alert(`${newName} is already in phonebook`);
     // reset newName
     setNewName("");
   };
