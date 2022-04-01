@@ -26,7 +26,7 @@ const Countries = (props) => {
 
       // handles match found
     } else if (match.length == 1) {
-      return <SingleCountry match={match} />;
+      return <SingleCountry match={match[0]} />;
 
       // handles no matches
     } else {
