@@ -1,7 +1,7 @@
 import { useState } from "react";
-import Search from "./Search";
-import Numbers from "./Numbers";
-import PersonForm from "./PersonForm";
+import Search from "./components/Search";
+import Numbers from "./components/Numbers";
+import PersonForm from "./components/PersonForm";
 
 const App = () => {
   // state variables
