@@ -6,8 +6,8 @@ const SingleCountry = ({ match }) => {
     <div>
       <h1>{match.name.common}</h1>
 
-      <div>capital {match.capital}</div>
-      <div>area {match.area}</div>
+      <div>capital: {match.capital}</div>
+      <div>area: {match.area}</div>
 
       <h3>languages:</h3>
       <ul>
@@ -16,7 +16,7 @@ const SingleCountry = ({ match }) => {
         ))}
       </ul>
 
-      <img src={match.flags.png} />
+      <img src={match.flags.png} alt={"country's flag"} />
     </div>
   );
 };

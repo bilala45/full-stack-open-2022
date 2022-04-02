@@ -16,16 +16,25 @@ const App = () => {
       .catch(() => console.log("error"));
   }, []);
 
+  // handles input to search field by setting query
+  const handleQueryChange = (event) => {
+    // prevents reload of page on submit
+    event.preventDefault();
+    setQuery(event.target.value);
+  };
+
+  const filtered = query
+    ? countries.filter((country) =>
+        country.name.common.toLowerCase().includes(query)
+      )
+    : countries;
+
   return (
     <>
       <form>
-        find countries:{" "}
-        <input
-          onChange={(event) => setQuery(event.target.value)}
-          value={query}
-        />
+        find countries: <input onChange={handleQueryChange} value={query} />
       </form>
-      <Countries countries={countries} query={query} />
+      <Countries filtered={filtered} query={query} setQuery={setQuery} />
     </>
   );
 };
