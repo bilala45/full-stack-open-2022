@@ -1,3 +1,5 @@
+import Weather from "./Weather";
+
 const SingleCountry = ({ match }) => {
   // extracts values from languages object
   const languages = Object.values(match.languages);
@@ -17,6 +19,8 @@ const SingleCountry = ({ match }) => {
       </ul>
 
       <img src={match.flags.png} alt={"country's flag"} />
+
+      <Weather capital={match.capital} latlng={match.capitalInfo.latlng} />
     </div>
   );
 };

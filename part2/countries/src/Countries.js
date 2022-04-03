@@ -3,8 +3,6 @@ import SingleCountry from "./SingleCountry";
 const Countries = (props) => {
   const { filtered, query, setQuery } = props;
 
-  console.log(filtered);
-
   // only renders if there is a query value
   if (query) {
     // condition for too many matches to query
@@ -18,6 +16,7 @@ const Countries = (props) => {
           {filtered.map((country) => (
             <div key={country.name.common}>
               {country.name.common}
+              {/* updates query with name of country pressed */}
               <button
                 onClick={() => setQuery(country.name.common.toLowerCase())}
               >

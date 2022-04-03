@@ -6,7 +6,7 @@ const App = () => {
   // stores country query
   const [query, setQuery] = useState("");
   // stores country data retrieved from restcountries api
-  const [countries, setCountries] = useState([]);
+  const [countries, setCountries] = useState();
 
   // request for countries data
   useEffect(() => {
@@ -23,6 +23,7 @@ const App = () => {
     setQuery(event.target.value);
   };
 
+  // filters country data based on query (only if query has a value)
   const filtered = query
     ? countries.filter((country) =>
         country.name.common.toLowerCase().includes(query)
