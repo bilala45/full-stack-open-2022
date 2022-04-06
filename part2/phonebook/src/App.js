@@ -11,6 +11,16 @@ const App = () => {
   const [newNumber, setNewNumber] = useState("");
   const [search, setSearch] = useState("");
 
+  // handle setNewName
+  const handleSetNewName = (event) => {
+    setNewName(event.target.value);
+  };
+
+  // handle setNewNumber
+  const handleSetNewNumber = (event) => {
+    setNewNumber(event.target.value);
+  };
+
   // retrieve data from db.json
   useEffect(() => {
     axios
@@ -18,8 +28,6 @@ const App = () => {
       .then((response) => setPersons(response.data))
       .catch(() => console.log("Error fetching resource."));
   }, []);
-
-  console.log(persons);
 
   // handles form submission by adding input to persons and resetting newName
   const handleSubmit = (event) => {
@@ -68,9 +76,9 @@ const App = () => {
       <h2>Add a new person</h2>
       <PersonForm
         newName={newName}
-        setNewName={setNewName}
+        handleSetNewName={handleSetNewName}
         newNumber={newNumber}
-        setNewNumber={setNewNumber}
+        setNewNumber={handleSetNewNumber}
         handleSubmit={handleSubmit}
       />
 
