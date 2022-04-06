@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Search from "./components/Search";
 import Numbers from "./components/Numbers";
 import PersonForm from "./components/PersonForm";
-import axios from "axios";
+import personServices from "./services/person";
 
 const App = () => {
   // state variables
@@ -23,10 +23,10 @@ const App = () => {
 
   // retrieve initial data
   useEffect(() => {
-    axios
-      .get("http://localhost:3001/persons")
-      .then((response) => setPersons(response.data))
-      .catch(() => console.log("Error fetching resource."));
+    personServices
+      .get()
+      .then((initialData) => setPersons(initialData))
+      .catch((error) => console.log("Error fetching resource."));
   }, []);
 
   // handle form submission when new person is added to phonebook
@@ -45,9 +45,9 @@ const App = () => {
 
     // posts newContact if user is not in phonebook, displays alert otherwise
     inPhonebook === -1
-      ? axios
-          .post("http://localhost:3001/persons", newContact)
-          .then((response) => setPersons(persons.concat(response.data)))
+      ? personServices
+          .create(newContact)
+          .then((newPerson) => setPersons(persons.concat(newPerson)))
           .catch((error) => console.log("post error"))
       : alert(`${newName} is already in phonebook`);
 

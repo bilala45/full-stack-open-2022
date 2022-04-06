@@ -24,6 +24,16 @@
       "name": "Bilal Ali",
       "number": "587-891-8199",
       "id": 5
+    },
+    {
+      "name": "Chris Paul",
+      "number": "423-414-6141",
+      "id": 6
+    },
+    {
+      "name": "Devin Booker",
+      "number": "123-456-7890",
+      "id": 7
     }
   ]
 }
