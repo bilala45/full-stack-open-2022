@@ -21,7 +21,7 @@ const App = () => {
     setNewNumber(event.target.value);
   };
 
-  // retrieve data from db.json
+  // retrieve initial data
   useEffect(() => {
     axios
       .get("http://localhost:3001/persons")
@@ -29,25 +29,26 @@ const App = () => {
       .catch(() => console.log("Error fetching resource."));
   }, []);
 
-  // handles form submission by adding input to persons and resetting newName
+  // handle form submission when new person is added to phonebook
   const handleSubmit = (event) => {
     // prevents form submit
     event.preventDefault();
 
-    // save newName in testString without whitespace
-    const testString = newName.replace(/\s/g, "");
+    // create new person object
+    const newContact = {
+      name: newName,
+      number: newNumber,
+    };
 
-    // check if name is already in phone book (index returned if name exists)
-    // removes whitespace to prevent duplicates
-    const inArray = persons.findIndex(
-      (person) => person.name.replace(/\s/g, "") === testString
-    );
-    inArray === -1
-      ? addSetPersons({
-          name: newName,
-          number: newNumber,
-          id: persons.length + 1,
-        })
+    // checks if user is already in phonebook
+    const inPhonebook = verifyUser();
+
+    // posts newContact if user is not in phonebook, displays alert otherwise
+    inPhonebook === -1
+      ? axios
+          .post("http://localhost:3001/persons", newContact)
+          .then((response) => setPersons(persons.concat(response.data)))
+          .catch((error) => console.log("post error"))
       : alert(`${newName} is already in phonebook`);
 
     // reset newName and newNumber
@@ -55,12 +56,22 @@ const App = () => {
     setNewNumber("");
   };
 
-  // handler to add values to persons state variable
-  const addSetPersons = (name) => {
-    // concat doesn't change existing array (no direct changes to state)
-    setPersons(persons.concat(name));
+  // verify name is not in phonebook
+  const verifyUser = () => {
+    // save newName in testString without whitespace
+    const testString = newName.replace(/\s/g, "");
+
+    // check if name is already in phone book (index returned if name exists)
+    // removes whitespace to prevent duplicates
+    const phonebookIndex = persons.findIndex(
+      (person) => person.name.replace(/\s/g, "") === testString
+    );
+
+    // returns -1 if user is not in phonebook, index otherwise
+    return phonebookIndex;
   };
 
+  // filtered array created from search query
   const showPersons =
     search === ""
       ? persons
@@ -78,7 +89,7 @@ const App = () => {
         newName={newName}
         handleSetNewName={handleSetNewName}
         newNumber={newNumber}
-        setNewNumber={handleSetNewNumber}
+        handleSetNewNumber={handleSetNewNumber}
         handleSubmit={handleSubmit}
       />
 
