@@ -1,5 +1,13 @@
 const Numbers = (props) => {
-  const { showPersons } = props;
+  const { persons, search } = props;
+
+  // filtered array created from search query
+  const showPersons =
+    search === ""
+      ? persons
+      : persons.filter((person) =>
+          person.name.toLowerCase().includes(search.toLowerCase())
+        );
 
   return (
     <div>
