@@ -14,7 +14,7 @@ const App = () => {
   // retrieve initial data
   useEffect(() => {
     personServices
-      .get()
+      .getAll()
       .then((initialData) => setPersons(initialData))
       .catch((error) => console.log("Error fetching resource."));
   }, []);
@@ -35,7 +35,7 @@ const App = () => {
       />
 
       <h2>Numbers</h2>
-      <Numbers persons={persons} search={search} />
+      <Numbers persons={persons} search={search} setPersons={setPersons} />
     </div>
   );
 };

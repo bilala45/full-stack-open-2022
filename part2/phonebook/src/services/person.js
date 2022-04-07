@@ -1,12 +1,16 @@
 import axios from "axios";
 const baseURL = "http://localhost:3001/persons";
 
-const get = () => {
+const getAll = () => {
   return axios.get(baseURL).then((response) => response.data);
 };
 
-const create = (newObject) => {
+const createNote = (newObject) => {
   return axios.post(baseURL, newObject).then((response) => response.data);
 };
 
-export default { get, create };
+const deleteNote = (id) => {
+  return axios.delete(`${baseURL}/${id}`);
+};
+
+export default { getAll, createNote, deleteNote };

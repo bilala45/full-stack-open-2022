@@ -31,7 +31,7 @@ const PersonForm = (props) => {
     // posts newContact if user is not in phonebook, displays alert otherwise
     inPhonebook === -1
       ? personServices
-          .create(newContact)
+          .createNote(newContact)
           .then((newPerson) => setPersons(persons.concat(newPerson)))
           .catch((error) => console.log("post error"))
       : alert(`${newName} is already in phonebook`);
