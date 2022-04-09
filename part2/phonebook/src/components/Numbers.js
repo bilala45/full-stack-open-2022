@@ -20,9 +20,7 @@ const Numbers = (props) => {
 
     // deletes user if user presses ok
     if (window.confirm(message)) {
-      personServices
-        .deleteNote(id)
-        .catch((error) => console.log("error with deletion"));
+      personServices.deleteNote(id);
       // passes new persons array with elements that don't match id
       setPersons(persons.filter((person) => person.id !== id));
     }

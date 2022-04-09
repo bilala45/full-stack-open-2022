@@ -13,10 +13,7 @@ const App = () => {
 
   // retrieve initial data
   useEffect(() => {
-    personServices
-      .getAll()
-      .then((initialData) => setPersons(initialData))
-      .catch((error) => console.log("Error fetching resource."));
+    personServices.getAll().then((initialData) => setPersons(initialData));
   }, []);
 
   return (

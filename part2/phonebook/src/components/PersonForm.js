@@ -33,7 +33,6 @@ const PersonForm = (props) => {
       ? personServices
           .createNote(newContact)
           .then((newPerson) => setPersons(persons.concat(newPerson)))
-          .catch((error) => console.log("post error"))
       : alert(`${newName} is already in phonebook`);
 
     // reset newName and newNumber
