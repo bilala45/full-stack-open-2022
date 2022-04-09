@@ -1,8 +1,15 @@
 import personServices from "../services/person";
 
 const PersonForm = (props) => {
-  const { newName, setNewName, newNumber, setNewNumber, persons, setPersons } =
-    props;
+  const {
+    newName,
+    setNewName,
+    newNumber,
+    setNewNumber,
+    persons,
+    setPersons,
+    setStatus,
+  } = props;
 
   // handle setNewName
   const handleSetNewName = (event) => {
@@ -30,9 +37,13 @@ const PersonForm = (props) => {
 
     // creates new contact for user or updates user with new phone number if contact already exists
     if (inPhonebook === -1) {
-      personServices
-        .createContact(newContact)
-        .then((newPerson) => setPersons(persons.concat(newPerson)));
+      personServices.createContact(newContact).then((newPerson) => {
+        setPersons(persons.concat(newPerson));
+        setStatus(`${newPerson.name} was added`);
+        setTimeout(() => {
+          setStatus("");
+        }, 3000);
+      });
     } else {
       // updates contact phone number
       if (
@@ -44,13 +55,17 @@ const PersonForm = (props) => {
 
         personServices
           .updateNumber(contactId, newContact)
-          .then((updatePerson) =>
+          .then((updatePerson) => {
             setPersons(
               persons.map((person) =>
                 person.id !== contactId ? person : updatePerson
               )
-            )
-          );
+            );
+            setStatus(`${updatePerson.name}'s phone number was updated`);
+            setTimeout(() => {
+              setStatus("");
+            }, 3000);
+          });
       }
     }
 

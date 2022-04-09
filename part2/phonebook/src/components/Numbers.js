@@ -1,7 +1,7 @@
 import personServices from "../services/person";
 
 const Numbers = (props) => {
-  const { persons, search, setPersons } = props;
+  const { persons, search, setPersons, setStatus } = props;
 
   // filtered array created from search query
   const showPersons =
@@ -23,6 +23,10 @@ const Numbers = (props) => {
       personServices.deleteContact(id);
       // passes new persons array with elements that don't match id
       setPersons(persons.filter((person) => person.id !== id));
+      setStatus(`${associatedUser.name} was deleted`);
+      setTimeout(() => {
+        setStatus("");
+      }, 3000);
     }
   };
 
