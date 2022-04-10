@@ -3,7 +3,7 @@ const express = require("express");
 const app = express();
 
 // hard-coded contacts
-const persons = [
+let persons = [
   {
     id: 1,
     name: "Arto Hellas",
@@ -44,6 +44,16 @@ app.get("/api/persons/:id", (req, res) => {
   const person = persons.find((person) => person.id === reqID);
   // return person if matching id found, 404 otherwise
   person ? res.json(person) : res.status(404).end();
+});
+
+// delete phonebook entry
+app.delete("/api/persons/:id", (req, res) => {
+  // extract id from route
+  const reqID = Number(req.params.id);
+  // filter persons array to remove person with matching id
+  persons = persons.filter((person) => person.id !== reqID);
+  // send back 204 status to signal completed action
+  res.status(204).end();
 });
 
 // retrieve app info
