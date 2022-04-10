@@ -36,6 +36,17 @@ app.get("/api/persons", (req, res) => {
   res.json(persons);
 });
 
+// retrieve individual person in phonebook
+app.get("/api/persons/:id", (req, res) => {
+  // extract id from route
+  const reqID = Number(req.params.id);
+  // find person in phonebook with matching id
+  const person = persons.find((person) => person.id === reqID);
+  // return person if matching id found, 404 otherwise
+  person ? res.json(person) : res.status(404).end();
+});
+
+// retrieve app info
 app.get("/info", (req, res) => {
   const numPersons = persons.length;
   const currDate = new Date();
