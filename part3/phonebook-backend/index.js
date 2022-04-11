@@ -2,6 +2,8 @@
 const express = require("express");
 const app = express();
 
+app.use(express.json());
+
 // hard-coded contacts
 let persons = [
   {
@@ -54,6 +56,28 @@ app.delete("/api/persons/:id", (req, res) => {
   persons = persons.filter((person) => person.id !== reqID);
   // send back 204 status to signal completed action
   res.status(204).end();
+});
+
+app.post("/api/persons", (req, res) => {
+  // incoming content is parsed to json and stored in contactInfo
+  const contactInfo = req.body;
+
+  // generate ID for new contact
+  const randomID = () => {
+    return Math.floor(Math.random() * 1000);
+  };
+
+  // define properties of new person
+  const person = {
+    id: randomID(),
+    name: contactInfo.name,
+    number: contactInfo.number,
+  };
+  // update persons array with new contact
+  persons = persons.concat(person);
+
+  // send person as response
+  res.json(person);
 });
 
 // retrieve app info
