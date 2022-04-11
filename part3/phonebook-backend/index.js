@@ -58,14 +58,28 @@ app.delete("/api/persons/:id", (req, res) => {
   res.status(204).end();
 });
 
+// generate ID
+const randomID = () => {
+  return Math.floor(Math.random() * 1000);
+};
+
 app.post("/api/persons", (req, res) => {
   // incoming content is parsed to json and stored in contactInfo
   const contactInfo = req.body;
 
-  // generate ID for new contact
-  const randomID = () => {
-    return Math.floor(Math.random() * 1000);
-  };
+  // check if name is in phonebook
+  const inPhonebook = persons.find(
+    (person) => person.name === contactInfo.name
+  );
+
+  // check content sent by user
+  if (inPhonebook) {
+    return res.status(400).json({ error: "name must be unique" });
+  } else if (!contactInfo.number) {
+    return res.status(400).json({ error: "number missing" });
+  } else if (!contactInfo.name) {
+    return res.status(400).json({ error: "name missing" });
+  }
 
   // define properties of new person
   const person = {
