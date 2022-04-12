@@ -3,11 +3,22 @@ const express = require("express");
 const morgan = require("morgan");
 const app = express();
 
-// morgan middleware
-app.use(morgan("tiny"));
-
-// parses incoming request to json and stores in contents.body
+// parses incoming request to json and stores in req.body
 app.use(express.json());
+
+// gets body of post request
+morgan.token("post-body", (req, res) => {
+  const bodySize = Object.keys(req.body).length;
+  const postBody = bodySize ? JSON.stringify(req.body) : "";
+  return postBody;
+});
+
+// morgan middleware
+app.use(
+  morgan(
+    ":method :url :status :res[content-length] - :response-time ms :post-body"
+  )
+);
 
 // hard-coded contacts
 let persons = [
