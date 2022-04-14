@@ -20,7 +20,7 @@ const App = () => {
 
   return (
     <div>
-      <h2>Phonebook</h2>
+      <h2>Phonebook - Deploy</h2>
       <Notification status={status} />
       <Search search={search} setSearch={setSearch} />
 
