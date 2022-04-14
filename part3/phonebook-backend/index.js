@@ -4,6 +4,12 @@ const morgan = require("morgan");
 const cors = require("cors");
 const app = express();
 
+// set listening port
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => {
+  console.log(`app listening on port ${PORT}`);
+});
+
 // allow cross-origin requests
 app.use(cors());
 
@@ -122,10 +128,4 @@ app.get("/info", (req, res) => {
   res.send(
     `<div><p>Phonebook has info for ${numPersons} people.</p><p>${currDate}</p></div>`
   );
-});
-
-// set listening port
-const PORT = 3001;
-app.listen(PORT, () => {
-  console.log(`app listening on port ${PORT}`);
 });
