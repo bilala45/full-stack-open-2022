@@ -1,0 +1,19 @@
+{
+  "persons": [
+    {
+      "name": "Bilal Ali",
+      "number": "525-625-1624",
+      "id": 1
+    },
+    {
+      "name": "Chris Paul",
+      "number": "526-624-1555",
+      "id": 2
+    },
+    {
+      "name": "Devin Booker",
+      "number": "625-252-7251",
+      "id": 3
+    }
+  ]
+}
