@@ -1,7 +1,11 @@
 // set up express app
 const express = require("express");
 const morgan = require("morgan");
+const cors = require("cors");
 const app = express();
+
+// allow cross-origin requests
+app.use(cors());
 
 // parses incoming request to json and stores in req.body
 app.use(express.json());
